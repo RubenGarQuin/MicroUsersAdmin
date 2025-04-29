@@ -21,7 +21,7 @@ management:
       base-path: /actuator
   endpoint:
     health:
-      show-details: when_authorized
+      show-details: always
       probes:
         enabled: true
 
@@ -29,4 +29,4 @@ info:
   app:
     name: User MicroService
     version: 0.0.1
-    description: Microservicio para gestión de usuarios
+    description: Microservicio para gestiï¿½n de usuarios
