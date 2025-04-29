@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: com.wend.micro.login
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/usersdb
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when_authorized
+      probes:
+        enabled: true
+
+info:
+  app:
+    name: User MicroService
+    version: 0.0.1
+    description: Microservicio para gestión de usuarios
