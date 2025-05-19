@@ -1,14 +1,16 @@
 
-FROM maven:3.9.6-eclipse-temurin-21 AS build
+FROM maven:3.9.6-eclipse-temurin-21 as builder
 WORKDIR /app
 COPY pom.xml .
+RUN mvn dependency:go-offline
 COPY src ./src
-RUN mvn clean package -DskipTests
+RUN mvn package -DskipTests
 
-FROM eclipse-temurin:21-jre
+# Run stage (Solo JRE + usuario no-root)
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
-
+RUN adduser --system --no-create-home appuser && chown appuser /app
+USER appuser  
+COPY --from=builder /app/target/microservicio-*.jar /app/app.jar
 EXPOSE 8080
-
 ENTRYPOINT ["java", "-jar", "app.jar"]
