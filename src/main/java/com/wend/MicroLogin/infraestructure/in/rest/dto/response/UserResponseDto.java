@@ -1,4 +1,4 @@
-package com.wend.MicroLogin.config.dto.response;
+package com.wend.MicroLogin.infraestructure.in.rest.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UserResponseDto {
-    private Long id;
     private String name;
     private String email;
 }

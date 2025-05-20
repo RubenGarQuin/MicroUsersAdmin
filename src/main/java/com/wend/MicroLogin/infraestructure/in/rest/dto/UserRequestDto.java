@@ -1,4 +1,4 @@
-package com.wend.MicroLogin.config.dto;
+package com.wend.MicroLogin.infraestructure.in.rest.dto;
 
 
 import jakarta.validation.constraints.Email;

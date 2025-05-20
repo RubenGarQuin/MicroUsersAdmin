@@ -30,3 +30,9 @@ info:
     name: User MicroService
     version: 0.0.1
     description: Microservicio para gesti�n de usuarios
+
+
+jwt:
+  secret: MiSuperClaveLargaYSeguraParaJWT123456
+  expiration-ms: 3600000  # 1 hora
+

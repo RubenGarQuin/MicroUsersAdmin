@@ -11,11 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class BeanConfig {
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
     public CreateUserUseCase createUserUseCase(UserJpaAdapter adapter, BCryptPasswordEncoder encoder) {
         return new UserService(encoder, adapter);
     }

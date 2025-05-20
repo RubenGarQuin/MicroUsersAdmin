@@ -4,6 +4,7 @@ import com.wend.MicroLogin.domain.exception.UserAlreadyExistsException;
 import com.wend.MicroLogin.domain.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -32,6 +33,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleUserNotFound(UserNotFoundException ex) {
         Map<String, String> error = Map.of("error", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<Map<String, String>> handleNotSupportedException(HttpRequestMethodNotSupportedException ex){
+        Map<String,String> error = Map.of(
+                "error","Metodo no permitido",
+                "message", "El metodo HTTP utilizado no está soportado para el endpoint utilizado"
+        );
+        return new ResponseEntity<>(error,HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @ExceptionHandler(Exception.class)

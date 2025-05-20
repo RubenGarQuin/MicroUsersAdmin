@@ -1,2 +1,11 @@
-package com.wend.MicroLogin.infraestructure.in.rest.dto.response;public class LoginResponseDto {
+package com.wend.MicroLogin.infraestructure.in.rest.dto.response;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class LoginResponseDto {
+    private String token;
+    private String userName;
 }

@@ -1,4 +1,4 @@
-package com.wend.MicroLogin.infraestructure.out.persistence.security;
+package com.wend.MicroLogin.infraestructure.security;
 
 
 import com.wend.MicroLogin.domain.model.User;

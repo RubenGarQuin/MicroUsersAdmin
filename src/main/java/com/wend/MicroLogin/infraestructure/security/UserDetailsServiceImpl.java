@@ -1,4 +1,4 @@
-package com.wend.MicroLogin.infraestructure.out.persistence.security;
+package com.wend.MicroLogin.infraestructure.security;
 
 import com.wend.MicroLogin.domain.port.out.UserRepositoryPort;
 import org.springframework.security.core.userdetails.UserDetails;
