@@ -1,29 +1,30 @@
-# ---- Metadatos de la imagen ----
-LABEL maintainer="TuNombre <tu@email.com>"
-LABEL version="1.0"
-LABEL description="Microservicio de gestión de usuarios"
+# ---- Fase de Construcción ----
+FROM eclipse-temurin:21-jdk as builder
+WORKDIR /app
 
-# ---- Fase de Construcción (JDK necesario) ----
-FROM eclipse-temurin:21-jdk as builder  
-WORKDIR /app  
-COPY .mvn/ .mvn  
-COPY mvnw pom.xml ./  
-RUN ./mvnw dependency:go-offline  
-COPY src ./src  
-RUN ./mvnw package -DskipTests  # Genera el .jar
+# Copia solo los archivos necesarios para descargar dependencias
+COPY pom.xml .
+COPY .mvn/ .mvn
+COPY mvnw .
 
+# Descarga dependencias (cachea esta capa)
+RUN ./mvnw dependency:go-offline
 
+# Copia el resto
+COPY src ./src
 
-# ---- Fase de Ejecución (Solo JRE) ----  
-FROM eclipse-temurin:21-jre-jammy  
-WORKDIR /app  
+# Empaca la aplicación
+RUN ./mvnw package -DskipTests
 
-# Crear usuario no-root (seguridad)  
-RUN adduser --system --no-create-home appuser && chown appuser /app  
-USER appuser  
+# ---- Fase de Ejecución ----
+FROM eclipse-temurin:21-jre-jammy
+WORKDIR /app
 
-# Copiar solo el .jar desde la fase de construcción  
-COPY --from=builder /app/target/com.wend.micro.login-0.0.1-SNAPSHOT.jar /app/app.jar
+RUN adduser --system --no-create-home appuser && chown appuser /app
+USER appuser
 
-EXPOSE 8080  
-ENTRYPOINT ["java", "-jar", "app.jar"]  
+# Copia el JAR desde la fase de construcción
+COPY --from=builder /app/target/*.jar /app/app.jar
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]

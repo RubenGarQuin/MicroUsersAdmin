@@ -3,7 +3,7 @@ spring:
     name: com.wend.micro.login
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/usersdb
+    url: jdbc:postgresql://postgresql:5432/usersdb
     username: admin
     password: admin
     driver-class-name: org.postgresql.Driver
