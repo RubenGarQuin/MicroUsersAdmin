@@ -1,0 +1,34 @@
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+  datasource:
+    url: jdbc:h2:mem:testdb  # Base de datos en memoria
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true  # Acceso a http://localhost:8080/h2-console
+      path: /h2-console
+      settings:
+        web-allow-others: false  # Seguridad básica
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop  # Auto-crea y borra la BD al iniciar/detener
+    show-sql: true  # Muestra SQL en consola
+    properties:
+      hibernate:
+        format_sql: true  # SQL legible
+
+# Logs detallados (combinado con el logback-spring.xml anterior)
+logging:
+  level:
+    root: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+jwt:
+  secret: DevSecretKey123  # Clave solo para desarrollo
+  expiration-ms: 86400000

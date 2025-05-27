@@ -1,17 +1,9 @@
 spring:
+  config:
+    activate:
+      on-profile: "default"  # Se usa cuando no hay perfil activo
   application:
-    name: com.wend.micro.login
-
-  datasource:
-    url: jdbc:postgresql://postgresql:5432/usersdb
-    username: admin
-    password: admin
-    driver-class-name: org.postgresql.Driver
-
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
+    name: user-service  # Nombre más corto y estándar
 
 management:
   endpoints:
@@ -29,10 +21,14 @@ info:
   app:
     name: User MicroService
     version: 0.0.1
-    description: Microservicio para gesti�n de usuarios
+    description: Microservicio para gestión de usuarios
 
+# Configuración común JPA (sobrescribible por perfiles)
+jpa:
+  database-platform: org.hibernate.dialect.PostgreSQLDialect
+  hibernate:
+    ddl-auto: validate  # ¡Más seguro que 'update' en prod!
 
+# Configuración JWT base
 jwt:
-  secret: MiSuperClaveLargaYSeguraParaJWT123456
-  expiration-ms: 3600000  # 1 hora
-
+  expiration-ms: 3600000  # 1 hora (común a todos los entornos)
